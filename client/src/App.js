@@ -1,14 +1,21 @@
-const callAPIEndpoint = () => {
-  fetch("/api").then((data) => {
+const callUsersEndpoint = () => {
+  fetch("/api/users").then((data) => {
     console.log(data)
   })
 }
+
+const callListingsEndpoint = () => {
+    fetch("/api/listings").then((data) => {
+      console.log(data)
+    })
+  }
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={callAPIEndpoint}>Test</button>
+        <button onClick={callUsersEndpoint}>Test users</button>
+        <button onClick={callListingsEndpoint}>Test listings</button>
       </header>
     </div>
   );
