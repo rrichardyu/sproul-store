@@ -8,7 +8,7 @@ app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 })
 
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
     try {
         const allData = await pool.query("SELECT * FROM users")
         res.json(allData.rows)

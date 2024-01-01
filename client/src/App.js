@@ -1,5 +1,5 @@
 const callAPIEndpoint = () => {
-  fetch("/").then((data) => {
+  fetch("/api").then((data) => {
     console.log(data)
   })
 }
