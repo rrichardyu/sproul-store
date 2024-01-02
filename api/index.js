@@ -46,3 +46,19 @@ app.get("/api/listings", async (req, res) => {
         })
     }
 })
+
+app.post("/api/listings", async (req, res) => {
+    try {
+        const { title, description, uid } = req.body;
+        const newListing = await pool.query(
+            `INSERT INTO listings (title, description, uid, created_at, active) \
+                VALUES ($1, $2, (SELECT uid FROM users WHERE uid=$3), to_timestamp($4), $5)`,
+            [title, description, uid, Date.now(), true]
+        )
+        res.json(newListing)
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
