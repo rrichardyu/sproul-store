@@ -49,8 +49,17 @@ app.get("/api/user/:uid", async (req, res) => {
 })
 
 app.get("/api/listings", async (req, res) => {
+    const query = req.query
+    
     try {
-        const allData = await pool.query("SELECT * FROM listings")
+        let allData;
+
+        if (Object.keys(query).includes("limit")) {
+            allData = await pool.query("SELECT * FROM listings LIMIT $1", [query.limit]) 
+        } else {
+            allData = await pool.query("SELECT * FROM listings")
+        }
+        
         res.json(allData.rows)
     } catch (err) {
         res.json({
