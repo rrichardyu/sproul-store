@@ -74,3 +74,15 @@ app.post("/api/listings", async (req, res) => {
         })
     }
 })
+
+app.get("/api/listing/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const listing = await pool.query("SELECT * FROM listings WHERE id=$1", [id])
+        res.json(listing.rows[0])
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
