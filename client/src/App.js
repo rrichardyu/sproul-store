@@ -1,4 +1,4 @@
-import Listing from "./components/Listing"
+import Listings from "./components/Listings"
 
 const callUsersEndpoint = () => {
   fetch("/api/users").then((data) => {
@@ -18,7 +18,7 @@ function App() {
       <header className="App-header">
         <button onClick={callUsersEndpoint}>Test users</button>
         <button onClick={callListingsEndpoint}>Test listings</button>
-        <Listing id={7}></Listing>
+        <Listings req_num_listings={15}></Listings>
       </header>
     </div>
   );
