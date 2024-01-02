@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
 export default function Listing({ id }) {
-    const [listing, setListing] = useState([]);
+    const [isBusy, setBusy] = useState(true)
+    const [listing, setListing] = useState([])
 
     const getListing = async (id) => {
         try {
@@ -16,13 +17,18 @@ export default function Listing({ id }) {
 
     useEffect(() => {
         getListing(id)
+        setBusy(false)
     }, [id])
 
-    return (
-        <div>
-            <h3>{listing.title}</h3>
-            <h4>Posted by {listing.uid} on {listing.created_at}</h4>
-            <p>{listing.description}</p>
-        </div>
-    )
+    if (!isBusy) {
+        return (
+            <div>
+                <h3>{listing.title}</h3>
+                <h4>Posted by {listing.uid} on {listing.created_at}</h4>
+                <p>{listing.description}</p>
+            </div>
+        )
+    } else {
+        return <p>Fetching listing...</p>
+    }
 }
