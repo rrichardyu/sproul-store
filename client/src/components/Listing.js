@@ -11,7 +11,7 @@ export default function Listing({ id }) {
             console.log(listingJSON)
             setListing(listingJSON)
         } catch (err) {
-            console.err(err.message)
+            console.error(err.message)
         }
     }
 
