@@ -24,7 +24,7 @@ export default function Listing({ id }) {
         return (
             <div>
                 <h3>{listing.title}</h3>
-                <h4>Posted by {listing.uid} on {listing.created_at}</h4>
+                <h4>Posted by {listing.first_name} on {listing.created_at}</h4>
                 <p>{listing.description}</p>
             </div>
         )

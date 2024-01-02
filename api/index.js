@@ -78,7 +78,11 @@ app.post("/api/listings", async (req, res) => {
 app.get("/api/listing/:id", async (req, res) => {
     try {
         const { id } = req.params
-        const listing = await pool.query("SELECT * FROM listings WHERE id=$1", [id])
+        const listing = await pool.query(
+            "SELECT listings.*, users.first_name, users.last_name FROM listings \
+                INNER JOIN users ON listings.uid=users.uid WHERE id=$1", 
+            [id]
+        )
         res.json(listing.rows[0])
     } catch (err) {
         res.json({

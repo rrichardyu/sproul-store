@@ -18,7 +18,7 @@ function App() {
       <header className="App-header">
         <button onClick={callUsersEndpoint}>Test users</button>
         <button onClick={callListingsEndpoint}>Test listings</button>
-        <Listing id={5}></Listing>
+        <Listing id={7}></Listing>
       </header>
     </div>
   );
