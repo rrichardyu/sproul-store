@@ -36,6 +36,18 @@ app.post("/api/users", async (req, res) => {
     }
 })
 
+app.get("/api/user/:uid", async (req, res) => {
+    try {
+        const { uid } = req.params
+        const user = await pool.query("SELECT * FROM users WHERE uid=$1", [uid])
+        res.json(user.rows[0])
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
+
 app.get("/api/listings", async (req, res) => {
     try {
         const allData = await pool.query("SELECT * FROM listings")
