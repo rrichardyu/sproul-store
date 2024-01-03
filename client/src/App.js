@@ -1,4 +1,7 @@
-import Listings from "./components/Listings"
+import { Route, Routes } from "react-router-dom"
+import Listings from "./pages/Listings"
+import Profile from "./pages/Profile"
+import NavigationBar from "./components/NavigationBar"
 
 const callUsersEndpoint = () => {
   fetch("/api/users").then((data) => {
@@ -14,13 +17,13 @@ const callListingsEndpoint = () => {
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <button onClick={callUsersEndpoint}>Test users</button>
-        <button onClick={callListingsEndpoint}>Test listings</button>
-        <Listings req_num_listings={15}></Listings>
-      </header>
-    </div>
+    <>
+      <NavigationBar></NavigationBar>
+      <Routes>
+        <Route path="/" element={<Listings />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </>
   );
 }
 
