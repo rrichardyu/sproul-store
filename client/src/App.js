@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import Listing from "./pages/Listing"
+import NewListing from "./pages/NewListing"
 import Listings from "./pages/Listings"
 import Profile from "./pages/Profile"
 import NavigationBar from "./components/NavigationBar"
@@ -11,7 +12,10 @@ function App() {
       <NavigationBar></NavigationBar>
       <Routes>
         <Route path="/" element={<Listings />} />
-        <Route path="/listing/:id" element={<Listing />} />
+        <Route path="/listing">
+          <Route path=":id" element={<Listing />} />
+          <Route path="new" element={<NewListing />} />
+        </Route>
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
