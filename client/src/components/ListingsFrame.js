@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom"
 
 export default function Listings({ req_num_listings }) {
     const [isBusy, setBusy] = useState(true)
@@ -30,6 +31,7 @@ export default function Listings({ req_num_listings }) {
                         <h3>{listing.title}</h3>
                         <h4>Posted by {listing.first_name} on {listing.created_at}</h4>
                         <p>{listing.description}</p>
+                        <Link to={`/listing/${listing.id}`}>Details</Link>
                         <hr />
                     </>
                 ))}

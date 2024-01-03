@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom"
 
-export default function Listing({ id }) {
+export default function Listing() {
+    const { id } = useParams()
     const [isBusy, setBusy] = useState(true)
     const [listing, setListing] = useState([])
 
