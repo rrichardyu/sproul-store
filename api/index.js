@@ -78,7 +78,7 @@ app.post("/api/listings", async (req, res) => {
         const newListing = await pool.query(
             `INSERT INTO listings (title, description, uid, created_at, active) \
                 VALUES ($1, $2, (SELECT uid FROM users WHERE uid=$3), to_timestamp($4), $5)`,
-            [title, description, uid, Date.now(), true]
+            [title, description, uid, Date.now() / 1000.0, true]
         )
         res.json(newListing)
     } catch (err) {
