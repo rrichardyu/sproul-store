@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
+import { useNavigate } from "react-router-dom"
 
 export default function Authentication() {
     const [user, setUser] = useState({})
     const [signedIn, setSignedIn] = useState(false)
+    const navigate = useNavigate()
 
     const authenticate = async (payload) => {
         try {
@@ -22,18 +24,32 @@ export default function Authentication() {
             console.log(authResponseJSON)
             setUser(authResponseJSON)
             setSignedIn(true)
+            redirect(authResponseJSON)
         } catch (err) {
             console.error(err.message)
         }
+    }
+
+    const redirect = async (data) => {
+        setTimeout(() => {
+            if (data.berkeley) {
+                navigate(
+                    "/listings", {
+                        replace: false,
+                        state: data
+                    }
+                )
+            }
+        }, 2000)
     }
 
     return (
         <div>
                 { signedIn ? 
                     user.berkeley ? (
-                        <p>Signed in as {user.name} ({user.email})</p>
+                        <p class="auth-success">Signing in as {user.name} ({user.email})...</p>
                     ) : (
-                        <p>You must sign in with a valid UC Berkeley email address (@berkeley.edu).</p>
+                        <p class="auth-error">You must sign in with a valid UC Berkeley email address.</p>
                     )
                 : (
                         <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>

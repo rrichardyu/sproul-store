@@ -142,3 +142,7 @@ app.post("/api/auth", async (req, res) => {
         berkeley: email.endsWith("@berkeley.edu")
     })
 })
+
+app.get("/api/auth/callback", async (req, res) => {
+    res.send("Successfully signed in")
+})

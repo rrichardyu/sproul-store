@@ -153,3 +153,13 @@ textarea {
     margin: 0 auto;
     display: inline-block;
 }
+
+.auth-success {
+    font-weight: bold;
+    color: green;
+}
+
+.auth-error {
+    font-weight: bold;
+    color: red;
+}
