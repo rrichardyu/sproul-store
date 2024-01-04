@@ -6,7 +6,10 @@ const express = require("express")
 const pool = require("./db")
 const { OAuth2Client } = require("google-auth-library")
 
+const auth = require("./middleware/auth")
+
 const app = express()
+app.use(auth)
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 const PORT = process.env.PORT || 8080
