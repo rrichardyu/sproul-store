@@ -1,6 +1,13 @@
+require("dotenv").config({
+    path: "../.env"
+})
+
 const express = require("express")
 const pool = require("./db")
+const { OAuth2Client } = require("google-auth-library")
+
 const app = express()
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 const PORT = process.env.PORT || 8080
 
@@ -9,6 +16,20 @@ app.use(express.json())
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 })
+
+async function createNewUser(first_name, last_name, email) {
+    try {
+        const newUser = await pool.query(
+            `INSERT INTO users (first_name, last_name, email, created_at) VALUES ($1, $2, $3, to_timestamp($4))`,
+            [first_name, last_name, email, Date.now()]
+        )
+        return newUser
+    } catch (err) {
+        return {
+            message: err.message
+        }
+    }
+}
 
 app.get("/api/users", async (req, res) => {
     try {
@@ -22,18 +43,8 @@ app.get("/api/users", async (req, res) => {
 })
 
 app.post("/api/users", async (req, res) => {
-    try {
-        const { first_name, last_name, email } = req.body;
-        const newUser = await pool.query(
-            `INSERT INTO users (first_name, last_name, email, created_at) VALUES ($1, $2, $3, to_timestamp($4))`,
-            [first_name, last_name, email, Date.now()]
-        )
-        res.json(newUser)
-    } catch (err) {
-        res.json({
-            message: err.message
-        })
-    }
+    const { first_name, last_name, email } = req.body
+    res.json(createNewUser(first_name, last_name, email))
 })
 
 app.get("/api/user/:uid", async (req, res) => {
@@ -102,4 +113,32 @@ app.get("/api/listing/:id", async (req, res) => {
             message: err.message
         })
     }
+})
+
+app.post("/api/auth", async (req, res) => {
+    const { authToken } = req.body
+
+    const ticket = await client.verifyIdToken({
+        idToken: authToken,
+        audience: process.env.GOOGLE_CLIENT_ID
+    })
+
+    const { name, email, picture } = ticket.getPayload();
+
+    if (email.endsWith("@berkeley.edu")) {
+        const getExistingUser = await pool.query(
+            "SELECT * FROM users WHERE email=$1",
+            [email]
+        )
+
+        if (!getExistingUser.rows.length) {
+            createNewUser(name, null, email)
+        }
+    }
+
+    res.json({
+        name: name,
+        email: email,
+        berkeley: email.endsWith("@berkeley.edu")
+    })
 })
