@@ -137,13 +137,16 @@ textarea {
     margin: auto;
     padding: 4em 1em;
     text-align: center;
-    margin: 0;
 }
 
 #landing-title {
     font-family: "DM Sans Display";
     font-size: xxx-large;
     margin: 0;
+}
+
+.landing-description {
+    margin: 1em;
 }
 
 #landing-auth-btn {
