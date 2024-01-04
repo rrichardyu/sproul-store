@@ -31,17 +31,20 @@ export default function NewListing() {
     return (
         <>
             <h1 class="pageTitle">New Listing</h1>
-            <form onSubmit={createNewListing}>
-                <div>
-                    <label htmlFor="title">Title</label>
+            <form class="new-listing-form-container" onSubmit={createNewListing}>
+                <div class="input-container">
+                    <label class="input-label" htmlFor="title">Title</label>
+                    <br />
                     <input name="title" id="title" onChange={(e) => setTitle(e.target.value)} />
                 </div>
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <input name="description" id="description" onChange={(e) => setDescription(e.target.value)} />
+                <div class="input-container">
+                    <label class="input-label" htmlFor="description">Description</label>
+                    <br />
+                    <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} />
                 </div>
-                <div>
-                    <label htmlFor="uid">User ID</label>
+                <div class="input-container">
+                    <label class="input-label" htmlFor="uid">User ID</label>
+                    <br />
                     <input name="uid" id="uid" onChange={(e) => setUID(e.target.value)} />
                 </div>
                 <button type="submit">Submit</button>
