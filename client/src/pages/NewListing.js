@@ -30,7 +30,7 @@ export default function NewListing() {
 
     return (
         <>
-            <h1>New Listing</h1>
+            <h1 class="pageTitle">New Listing</h1>
             <form onSubmit={createNewListing}>
                 <div>
                     <label htmlFor="title">Title</label>

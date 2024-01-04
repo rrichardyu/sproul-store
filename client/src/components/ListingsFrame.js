@@ -25,14 +25,15 @@ export default function Listings({ req_num_listings }) {
 
     if (!isBusy) {
         return (
-            <div>
+            <div id="listings-container">
                 {listings.map((listing) => (
                     <>
-                        <h3>{listing.title}</h3>
-                        <h4>Posted by {listing.first_name} on {listing.created_at}</h4>
-                        <p>{listing.description}</p>
-                        <Link to={`/listing/${listing.id}`}>Details</Link>
-                        <hr />
+                        <div class="listing-item">
+                            <h3 class="listing-title">{listing.title}</h3>
+                            <h4 class="listing-subtitle">Posted by {listing.first_name} on {listing.created_at}</h4>
+                            <p class="listing-description">{listing.description}</p>
+                            <Link className="listing-details-link" to={`/listing/${listing.id}`}><button class="listing-details-button">Details</button></Link>
+                        </div>
                     </>
                 ))}
             </div>
