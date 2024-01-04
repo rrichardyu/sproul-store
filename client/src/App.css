@@ -121,3 +121,32 @@ textarea {
     border: solid 2px black;
     border-radius: 0.5em;
 }
+
+#landing-container {
+    background-color: #003262;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+#landing-content {
+    background-color: white;
+    width: 20em;
+    border: solid 1px black;
+    box-shadow: 0.5em 0.5em;
+    margin: auto;
+    padding: 4em 1em;
+    text-align: center;
+    margin: 0;
+}
+
+#landing-title {
+    font-family: "DM Sans Display";
+    font-size: xxx-large;
+    margin: 0;
+}
+
+#landing-auth-btn {
+    margin: 0 auto;
+    display: inline-block;
+}
