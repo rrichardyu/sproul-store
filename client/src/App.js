@@ -5,6 +5,7 @@ import Listings from "./pages/Listings"
 import Profile from "./pages/Profile"
 import NavigationBar from "./components/NavigationBar"
 import NotFound from "./pages/NotFound"
+import "./App.css"
 
 function App() {
   return (

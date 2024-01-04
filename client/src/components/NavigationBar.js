@@ -29,33 +29,37 @@ export default function NavigationBar() {
     }
 
     return (
-        <ul>
-            <li><Link to="/">Listings</Link></li>
-            <li><Link to="/listing/new">New Listing</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-
-            { signedIn ? 
-                user.berkeley ? (
-                    <p>Signed in as {user.name} ({user.email})</p>
-                ) : (
-                    <p>You must sign in with a valid UC Berkeley email address (@berkeley.edu).</p>
-                )
-             : (
-                    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-                        <GoogleLogin 
-                            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                            buttonText="Sign in with Google"
-                            onSuccess={credentialResponse => {
-                                console.log(credentialResponse)
-                                authenticate(credentialResponse)
-                            }}
-                            onError={() => {
-                                console.log("Login failed")
-                            }}
-                        />
-                    </GoogleOAuthProvider>
-                )
-            }
+        <ul id="nav-list">
+            <li class="nav-item nav-web-left"><Link className="nav-link nav-web-left" to="/">sproul.store</Link></li>
+            <li class="nav-item"><Link className="nav-link" to="/">Listings</Link></li>
+            <li class="nav-item"><Link className="nav-link" to="/listing/new">New Listing</Link></li>
+            <li class="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
+            <li class="nav-item nav-right" id="nav-google-sign-in">
+                <div>
+                { signedIn ? 
+                    user.berkeley ? (
+                        <p>Signed in as {user.name} ({user.email})</p>
+                    ) : (
+                        <p>You must sign in with a valid UC Berkeley email address (@berkeley.edu).</p>
+                    )
+                : (
+                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+                            <GoogleLogin 
+                                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                                buttonText="Sign in with Google"
+                                onSuccess={credentialResponse => {
+                                    console.log(credentialResponse)
+                                    authenticate(credentialResponse)
+                                }}
+                                onError={() => {
+                                    console.log("Login failed")
+                                }}
+                            />
+                        </GoogleOAuthProvider>
+                    )
+                }
+                </div>
+            </li>
         </ul>
     )
 }
