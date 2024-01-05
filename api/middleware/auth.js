@@ -17,15 +17,29 @@ const auth = async (req, res, next) => {
         
         // TODO: create new user and corresponding uid
 
-        const existingUser = await pool.query(
-            "SELECT uid FROM users WHERE email=$1",
-            [email]
-        )
-        const existingUserUID = existingUser.rows[0].uid
-        req.uid = existingUserUID
-        return res.json({
-            uid: existingUserUID
-        })
+        // const existingUser = await pool.query(
+        //     "SELECT uid FROM users WHERE email=$1",
+        //     [email]
+        // )
+        // const existingUserUID = existingUser.rows[0].uid
+
+        if (token) {
+            jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+                if (err) {
+                    return res.status(401).json({ 
+                        error: "Token validation failed"
+                    })
+                } else {
+                    req.uid = decodedToken.uid
+              }
+            })
+        } else {
+            res.status(401).json({ 
+                error: "Token validation failed" 
+            })
+        }
+
+        next()
     } catch (err) {
         console.log(err)
         return res.status(401).json({

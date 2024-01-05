@@ -28,7 +28,7 @@ export default function Authentication() {
             localStorage.setItem("user", JSON.stringify(authResponseJSON))
             setAuthState({
                 uid: authResponseJSON.uid,
-                token: null
+                token: authResponseJSON.token
             })
             setSignedIn(true)
             redirect(authResponseJSON)

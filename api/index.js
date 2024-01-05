@@ -5,8 +5,10 @@ require("dotenv").config({
 const express = require("express")
 const pool = require("./db")
 const { OAuth2Client } = require("google-auth-library")
+const jwt = require("jsonwebtoken")
 
 const auth = require("./middleware/auth")
+const { createNewUser } = require("./controllers/auth_controllers")
 
 const app = express()
 // app.use(auth)
@@ -19,20 +21,6 @@ app.use(express.json())
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 })
-
-async function createNewUser(first_name, last_name, email) {
-    try {
-        const newUser = await pool.query(
-            `INSERT INTO users (first_name, last_name, email, created_at) VALUES ($1, $2, $3, to_timestamp($4))`,
-            [first_name, last_name, email, Date.now()]
-        )
-        return newUser
-    } catch (err) {
-        return {
-            message: err.message
-        }
-    }
-}
 
 app.get("/api/users", auth, async (req, res) => {
     try {
@@ -62,7 +50,7 @@ app.get("/api/user/:uid", auth, async (req, res) => {
     }
 })
 
-app.get("/api/listings", async (req, res) => {
+app.get("/api/listings", auth, async (req, res) => {
     const query = req.query
     
     try {
@@ -139,16 +127,28 @@ app.post("/api/auth", async (req, res) => {
         if (!existingUser.rows.length) {
             createNewUser(name, null, email)
         } else {
-
-            // TODO: generate JWT token
-
             const uid = existingUser.rows[0].uid
-            res.json({
-                name: name,
-                email: email,
-                berkeley: email.endsWith("@berkeley.edu"),
-                uid: uid,
-                token: null
+
+            const payload = {
+                uid: uid
+            }
+
+            jwt.sign(payload, process.env.SECRET, {
+                expiresIn: "7d"
+            }, (err, token) => {
+                if (err) {
+                    return res.status(401).json({
+                        error: "Token generation failed"
+                    })
+                } else {
+                    res.json({
+                        name: name,
+                        email: email,
+                        berkeley: email.endsWith("@berkeley.edu"),
+                        uid: uid,
+                        token: token
+                    })
+                }
             })
         }
     } else {
