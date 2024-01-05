@@ -62,7 +62,7 @@ app.get("/api/user/:uid", auth, async (req, res) => {
     }
 })
 
-app.get("/api/listings", auth, async (req, res) => {
+app.get("/api/listings", async (req, res) => {
     const query = req.query
     
     try {
@@ -128,6 +128,8 @@ app.post("/api/auth", async (req, res) => {
 
     const { name, email, picture } = ticket.getPayload();
 
+    // TODO: use auth middleware here, delete implementation below
+
     if (email.endsWith("@berkeley.edu")) {
         const existingUser = await pool.query(
             "SELECT * FROM users WHERE email=$1",
@@ -137,6 +139,9 @@ app.post("/api/auth", async (req, res) => {
         if (!existingUser.rows.length) {
             createNewUser(name, null, email)
         } else {
+
+            // TODO: generate JWT token
+
             const uid = existingUser.rows[0].uid
             res.json({
                 name: name,

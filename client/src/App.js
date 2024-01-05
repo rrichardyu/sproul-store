@@ -7,27 +7,32 @@ import NavigationBar from "./components/NavigationBar"
 import NotFound from "./pages/NotFound"
 import "./App.css"
 import Landing from "./pages/Landing"
+import { AuthProvider } from "./context/AuthContext"
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route element={
-          <>
-            <NavigationBar />
-            <Outlet />
-          </>
-          }>
-          <Route path="/listings" element={<Listings />} />
-          <Route path="/listing">
-            <Route path=":id" element={<Listing />} />
-            <Route path="new" element={<NewListing />} />
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+        </Routes>
+        <Routes>
+          <Route element={
+            <>
+              <NavigationBar />
+              <Outlet />
+            </>
+            }>
+              <Route path="/listings" element={<Listings />} />
+              <Route path="/listing">
+                <Route path=":id" element={<Listing />} />
+                <Route path="new" element={<NewListing />} />
+              </Route>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </AuthProvider>
     </>
   );
 }

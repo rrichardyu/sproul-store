@@ -1,8 +1,11 @@
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 export default function NavigationBar() {
     const navigate = useNavigate()
+    const [authState, setAuthState] = useAuth()
 
     const logout = () => {
         redirect()
@@ -24,6 +27,7 @@ export default function NavigationBar() {
             <li class="nav-item"><Link className="nav-link" to="/listing/new">New Listing</Link></li>
             <li class="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
             <li class="nav-item nav-right"><button onClick={logout}>Sign out</button></li>
+            <li class="nav-item nav-right">UID: {authState.uid}, Token: {authState.token}</li>
         </ul>
     )
 }

@@ -13,13 +13,19 @@ const auth = async (req, res, next) => {
     const token = authorization.split(" ")[1]
 
     try {
-        const { _id } = jwt.decode(token)
-        console.log(jwt.decode(token))
-        // req.uid = await pool.query(
-        //     "SELECT uid FROM users WHERE _id='$1'",
-        //     [_id]
-        // )
-        return res.json(jwt.decode(token))
+        const { email } = jwt.decode(token)
+        
+        // TODO: create new user and corresponding uid
+
+        const existingUser = await pool.query(
+            "SELECT uid FROM users WHERE email=$1",
+            [email]
+        )
+        const existingUserUID = existingUser.rows[0].uid
+        req.uid = existingUserUID
+        return res.json({
+            uid: existingUserUID
+        })
     } catch (err) {
         console.log(err)
         return res.status(401).json({

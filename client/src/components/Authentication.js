@@ -1,11 +1,13 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 export default function Authentication() {
     const [user, setUser] = useState({})
     const [signedIn, setSignedIn] = useState(false)
     const navigate = useNavigate()
+    const [authState, setAuthState] = useAuth()
 
     const authenticate = async (payload) => {
         try {
@@ -24,6 +26,10 @@ export default function Authentication() {
             console.log(authResponseJSON)
             setUser(authResponseJSON)
             localStorage.setItem("user", JSON.stringify(authResponseJSON))
+            setAuthState({
+                uid: authResponseJSON.uid,
+                token: null
+            })
             setSignedIn(true)
             redirect(authResponseJSON)
         } catch (err) {
