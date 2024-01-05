@@ -26,10 +26,16 @@ export default function Authentication() {
             console.log(authResponseJSON)
             setUser(authResponseJSON)
             localStorage.setItem("user", JSON.stringify(authResponseJSON))
-            setAuthState({
+
+            const newAuthState = {
                 uid: authResponseJSON.uid,
                 token: authResponseJSON.token
-            })
+            }
+
+            setAuthState(newAuthState)
+            localStorage.setItem("uid", newAuthState.uid)
+            localStorage.setItem("token", newAuthState.token)
+
             setSignedIn(true)
             redirect(authResponseJSON)
         } catch (err) {

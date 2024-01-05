@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound"
 import "./App.css"
 import Landing from "./pages/Landing"
 import { AuthProvider } from "./context/AuthContext"
+import AuthWrapper from "./components/AuthWrapper"
 
 function App() {
   return (
@@ -23,12 +24,15 @@ function App() {
               <Outlet />
             </>
             }>
-              <Route path="/listings" element={<Listings />} />
-              <Route path="/listing">
-                <Route path=":id" element={<Listing />} />
-                <Route path="new" element={<NewListing />} />
+              <Route element={<AuthWrapper />}>
+                <Route path="/listings" element={<Listings />} />
+                <Route path="/listing">
+                  <Route path=":id" element={<Listing />} />
+                  <Route path="new" element={<NewListing />} />
+                </Route>
+                <Route path="/profile" element={<Profile />} />
               </Route>
-              <Route path="/profile" element={<Profile />} />
+              
               <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
