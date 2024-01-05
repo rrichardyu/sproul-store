@@ -13,14 +13,16 @@ const auth = async (req, res, next) => {
     const token = authorization.split(" ")[1]
 
     try {
-        const { _id } = jwt.verify(token, process.env.SECRET)
-        req.uid = await pool.query(
-            "SELECT uid FROM users WHERE _id='$1'",
-            [_id]
-        )
+        const { _id } = jwt.decode(token)
+        console.log(jwt.decode(token))
+        // req.uid = await pool.query(
+        //     "SELECT uid FROM users WHERE _id='$1'",
+        //     [_id]
+        // )
+        return res.json(jwt.decode(token))
     } catch (err) {
         console.log(err)
-        res.status(401).json({
+        return res.status(401).json({
             error: "Token validation failed"
         })
     }

@@ -9,7 +9,7 @@ const { OAuth2Client } = require("google-auth-library")
 const auth = require("./middleware/auth")
 
 const app = express()
-app.use(auth)
+// app.use(auth)
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 const PORT = process.env.PORT || 8080
@@ -34,7 +34,7 @@ async function createNewUser(first_name, last_name, email) {
     }
 }
 
-app.get("/api/users", async (req, res) => {
+app.get("/api/users", auth, async (req, res) => {
     try {
         const allData = await pool.query("SELECT * FROM users")
         res.json(allData.rows)
@@ -45,12 +45,12 @@ app.get("/api/users", async (req, res) => {
     }
 })
 
-app.post("/api/users", async (req, res) => {
+app.post("/api/users", auth, async (req, res) => {
     const { first_name, last_name, email } = req.body
     res.json(createNewUser(first_name, last_name, email))
 })
 
-app.get("/api/user/:uid", async (req, res) => {
+app.get("/api/user/:uid", auth, async (req, res) => {
     try {
         const { uid } = req.params
         const user = await pool.query("SELECT * FROM users WHERE uid=$1", [uid])
@@ -62,7 +62,7 @@ app.get("/api/user/:uid", async (req, res) => {
     }
 })
 
-app.get("/api/listings", async (req, res) => {
+app.get("/api/listings", auth, async (req, res) => {
     const query = req.query
     
     try {
@@ -86,7 +86,7 @@ app.get("/api/listings", async (req, res) => {
     }
 })
 
-app.post("/api/listings", async (req, res) => {
+app.post("/api/listings", auth, async (req, res) => {
     try {
         const { title, description, uid } = req.body;
         const newListing = await pool.query(
@@ -102,7 +102,7 @@ app.post("/api/listings", async (req, res) => {
     }
 })
 
-app.get("/api/listing/:id", async (req, res) => {
+app.get("/api/listing/:id", auth, async (req, res) => {
     try {
         const { id } = req.params
         const listing = await pool.query(
