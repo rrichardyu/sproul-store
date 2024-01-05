@@ -12,7 +12,7 @@ import AuthWrapper from "./components/AuthWrapper"
 
 function App() {
   return (
-    <>
+    <div className="App">
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -34,7 +34,7 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-    </>
+    </div>
   );
 }
 
