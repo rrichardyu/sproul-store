@@ -129,21 +129,28 @@ app.post("/api/auth", async (req, res) => {
     const { name, email, picture } = ticket.getPayload();
 
     if (email.endsWith("@berkeley.edu")) {
-        const getExistingUser = await pool.query(
+        const existingUser = await pool.query(
             "SELECT * FROM users WHERE email=$1",
             [email]
         )
 
-        if (!getExistingUser.rows.length) {
+        if (!existingUser.rows.length) {
             createNewUser(name, null, email)
+        } else {
+            const uid = existingUser.rows[0].uid
+            res.json({
+                name: name,
+                email: email,
+                berkeley: email.endsWith("@berkeley.edu"),
+                uid: uid,
+                token: null
+            })
         }
+    } else {
+        res.json({
+            berkeley: email.endsWith("@berkeley.edu")
+        })
     }
-
-    res.json({
-        name: name,
-        email: email,
-        berkeley: email.endsWith("@berkeley.edu")
-    })
 })
 
 app.get("/api/auth/callback", async (req, res) => {

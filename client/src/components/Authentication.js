@@ -23,6 +23,7 @@ export default function Authentication() {
             const authResponseJSON = await authResponse.json()
             console.log(authResponseJSON)
             setUser(authResponseJSON)
+            localStorage.setItem("user", JSON.stringify(authResponseJSON))
             setSignedIn(true)
             redirect(authResponseJSON)
         } catch (err) {
