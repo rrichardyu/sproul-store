@@ -16,8 +16,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Landing />} />
-        </Routes>
-        <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route element={
             <>
               <NavigationBar />
@@ -32,8 +31,6 @@ function App() {
                 </Route>
                 <Route path="/profile" element={<Profile />} />
               </Route>
-              
-              <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </AuthProvider>
