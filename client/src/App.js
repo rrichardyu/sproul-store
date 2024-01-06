@@ -9,6 +9,7 @@ import "./App.css"
 import Landing from "./pages/Landing"
 import { AuthProvider } from "./context/AuthContext"
 import AuthWrapper from "./components/AuthWrapper"
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <>
               <NavigationBar />
               <Outlet />
+              <Footer />
             </>
             }>
               <Route element={<AuthWrapper />}>

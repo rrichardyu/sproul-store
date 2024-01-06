@@ -163,3 +163,13 @@ textarea {
     font-weight: bold;
     color: red;
 }
+
+footer {
+    margin: 2em;
+}
+
+.footer-row {
+    text-align: center;
+    font-size: small;
+    margin: 0;
+}

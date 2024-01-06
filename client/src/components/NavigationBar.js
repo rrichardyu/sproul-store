@@ -27,7 +27,6 @@ export default function NavigationBar() {
             <li class="nav-item"><Link className="nav-link" to="/listing/new">New Listing</Link></li>
             <li class="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
             <li class="nav-item nav-right"><button onClick={logout}>Sign out</button></li>
-            <li class="nav-item nav-right">UID: {authState.uid}, Token: {authState.token}</li>
         </ul>
     )
 }
