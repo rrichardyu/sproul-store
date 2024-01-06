@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useAuth } from "../context/AuthContext"
+import { formatDate } from "../Utils"
 
 export default function Profile() {
     // TODO: render my info, my listings (from API), and ability to edit/delete this info
@@ -45,20 +46,6 @@ export default function Profile() {
             console.error(err.message)
         }
     }, [authState.token])
-
-    const formatDate = (date_input) => {
-        const date = new Date(Date.parse(date_input))
-        const formatter = new Intl.DateTimeFormat("en-US",
-            {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-            }
-        )
-        return formatter.format(date)
-    }
 
     useEffect(() => {
         getUserData()

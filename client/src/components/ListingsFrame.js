@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import { formatDate } from '../Utils';
 
 export default function Listings({ req_num_listings }) {
     const [isBusy, setBusy] = useState(true)
@@ -38,7 +39,7 @@ export default function Listings({ req_num_listings }) {
                     <>
                         <div class="listing-item">
                             <h3 class="listing-title">{listing.title}</h3>
-                            <h4 class="listing-subtitle">Posted by {listing.first_name} on {listing.created_at}</h4>
+                            <h4 class="listing-subtitle">Posted by {listing.first_name} on {formatDate(listing.created_at)}</h4>
                             <p class="listing-description">{listing.description}</p>
                             <Link className="listing-details-link" to={`/listing/${listing.id}`}><button class="listing-details-button">Details</button></Link>
                         </div>
