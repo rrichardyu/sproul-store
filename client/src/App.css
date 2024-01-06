@@ -13,6 +13,7 @@ body {
     overflow: hidden;
     background-color: #FDB515;
     font-family: "DM Serif Display";
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.2);
 }
 
 .nav-item {
@@ -140,7 +141,7 @@ textarea {
 }
 
 #landing-title {
-    font-family: "DM Sans Display";
+    font-family: "DM Serif Display";
     font-size: xxx-large;
     margin: 0;
 }
@@ -172,4 +173,26 @@ footer {
     text-align: center;
     font-size: small;
     margin: 0;
+}
+
+#sign-out-container {
+    padding: 0.25em;
+}
+
+#sign-out-btn {
+    background-color: #003262;
+    border: solid 2px black;
+    border-radius: 0.5em;
+    color: white;
+    font-family: "DM Serif Display";
+    font-size: medium;
+    font-weight: bold;
+    padding: 0.6em 0.75em;
+    margin: 0;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+
+#sign-out-btn:hover {
+    background-color: red;
 }

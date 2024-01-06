@@ -25,8 +25,10 @@ export default function NavigationBar() {
             <li class="nav-item nav-web-left"><Link className="nav-link nav-web-left">sproul.store</Link></li>
             <li class="nav-item"><Link className="nav-link" to="/listings">Listings</Link></li>
             <li class="nav-item"><Link className="nav-link" to="/listing/new">New Listing</Link></li>
-            <li class="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
-            <li class="nav-item nav-right"><button onClick={logout}>Sign out</button></li>
+            <li class="nav-item nav-right" id="sign-out-container">
+                <button id="sign-out-btn" onClick={logout}>Log out</button>
+            </li>
+            <li class="nav-item nav-right"><Link className="nav-link" to="/profile">Profile</Link></li>
         </ul>
     )
 }
