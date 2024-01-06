@@ -71,7 +71,7 @@ export default function Profile() {
             <>
                 <h1 class="pageTitle">Profile</h1>
                 <div id="cards-container">
-                    <div id="personal-information">
+                    <div class="card">
                         <h2 class="card-title">Personal Information</h2>
                         <table>
                             <tr>
@@ -93,7 +93,7 @@ export default function Profile() {
                         </table>
                         <p class="card-text">Your personal information is associated with your UC Berkeley Google account.</p>
                     </div>
-                    <div id="my-listings">
+                    <div class="card">
                         <h2 class="card-title">My Listings</h2>
                         <table id="my-listings-table">
                                 <tr>
@@ -113,6 +113,9 @@ export default function Profile() {
                                 </tr>
                             ))}
                         </table>
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title">Contact Information</h2>
                     </div>
                 </div>
             </>

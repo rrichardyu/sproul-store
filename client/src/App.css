@@ -222,16 +222,7 @@ h2.card-title {
     margin-bottom: 1em;
 }
 
-div#personal-information {
-    border: solid 2px black;
-    border-radius: 0.5em;
-    margin: 1em;
-    padding: 1em;
-    width: 50vw;
-    height: 100%;
-}
-
-div#my-listings {
+div.card {
     border: solid 2px black;
     border-radius: 0.5em;
     margin: 1em;
