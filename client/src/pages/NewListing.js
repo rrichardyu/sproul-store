@@ -50,7 +50,7 @@ export default function NewListing() {
                     <br />
                     <input name="uid" id="uid" onChange={(e) => setUID(e.target.value)} />
                 </div>
-                <button type="submit">Submit</button>
+                <button id="new-listing-submit-btn" type="submit">Submit</button>
             </form>
         </>
     )

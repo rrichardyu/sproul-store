@@ -68,19 +68,19 @@ body {
     margin: 1em;
     border: solid 2px black;
     border-radius: 0.5em;
-    box-shadow: 0.5em 0.5em black;
+    /* box-shadow: 0.5em 0.5em black; */
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.2);
 
     flex: 0 0 21%;
 }
 
 .listing-details-button {
     background-color: #FDB515;
-    color: black;
-    border: none;
-    font-family: "DM Sans";
-    padding: 0.25em 1em;
-    margin-right: 1em;
-    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+
+.listing-details-button:hover {
+    background-color: white;
 }
 
 .new-listing-form-container {
@@ -179,11 +179,10 @@ footer {
     padding: 0.25em;
 }
 
-#sign-out-btn {
-    background-color: #003262;
+button {
     border: solid 2px black;
     border-radius: 0.5em;
-    color: white;
+    color: black;
     font-family: "DM Serif Display";
     font-size: medium;
     font-weight: bold;
@@ -193,6 +192,22 @@ footer {
     transition: 0.25s ease-in-out;
 }
 
+#sign-out-btn {
+    background-color: #003262;
+    color: white;
+}
+
 #sign-out-btn:hover {
     background-color: red;
+    color: black;
+}
+
+#new-listing-submit-btn {
+    background-color: #53626F;
+    color: white;
+}
+
+#new-listing-submit-btn:hover {
+    background-color: green;
+    color: white;
 }
