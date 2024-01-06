@@ -32,10 +32,21 @@ export default function Listing() {
 
     if (!isBusy) {
         return (
-            <div>
-                <h3>{listing.title}</h3>
-                <h4>Posted by {listing.first_name} on {listing.created_at}</h4>
-                <p>{listing.description}</p>
+            <div id="listing-card-container">
+                <div class="listing-left-container">
+                    <div class="listing-main-card">
+                        <h2>{listing.title}</h2>
+                        <h4>Posted by {listing.first_name} on {listing.created_at}</h4>
+                    </div>
+                    <div class="listing-main-card">
+                        <p id="listing-description">{listing.description}</p>
+                    </div>
+                </div>
+                <div class="listing-right-container">
+                    <div class="listing-side-card">
+                        <h2>Contact Information</h2>
+                    </div>
+                </div>
             </div>
         )
     } else {
