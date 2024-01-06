@@ -38,6 +38,18 @@ app.post("/api/users", auth, async (req, res) => {
     res.json(createNewUser(first_name, last_name, email))
 })
 
+app.get("/api/user/my", auth, async (req, res) => {
+    try {
+        const { uid } = req.params
+        const user = await pool.query("SELECT * FROM users WHERE uid=$1", [req.uid])
+        res.json(user.rows[0])
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
+
 app.get("/api/user/:uid", auth, async (req, res) => {
     try {
         const { uid } = req.params

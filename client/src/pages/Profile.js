@@ -16,7 +16,7 @@ export default function Profile() {
             headers.append("Content-Type", "application/json")
             headers.append("Authorization", `Bearer ${authState.token}`)
 
-            const userDataResponse = await fetch(`/api/user/${authState.uid}`, {
+            const userDataResponse = await fetch(`/api/user/my`, {
                 headers: headers
             })
             const userDataJSON = await userDataResponse.json()
