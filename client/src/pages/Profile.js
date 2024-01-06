@@ -91,6 +91,7 @@ export default function Profile() {
                                 <td class="data-value">{userData.created_at}</td>
                             </tr>
                         </table>
+                        <p class="card-text">Your personal information is associated with your UC Berkeley Google account.</p>
                     </div>
                     <div id="my-listings">
                         <h2 class="card-title">My Listings</h2>

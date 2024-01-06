@@ -15,13 +15,12 @@ export default function NewListing() {
             headers.append("Content-Type", "application/json");
             headers.append("Authorization", `Bearer ${authState.token}`)
 
-            const newListingResponse = await fetch(`/api/listings`, {
+            const newListingResponse = await fetch(`/api/listings/my`, {
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify({
                     title: title,
                     description: description,
-                    uid: uid
                 })
             })
             const listingJSON = await newListingResponse.json()
@@ -44,11 +43,6 @@ export default function NewListing() {
                     <label class="input-label" htmlFor="description">Description</label>
                     <br />
                     <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} />
-                </div>
-                <div class="input-container">
-                    <label class="input-label" htmlFor="uid">User ID</label>
-                    <br />
-                    <input name="uid" id="uid" onChange={(e) => setUID(e.target.value)} />
                 </div>
                 <button id="new-listing-submit-btn" type="submit">Submit</button>
             </form>
