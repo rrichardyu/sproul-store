@@ -9,7 +9,8 @@ export function useAuth() {
 export function AuthProvider(props) {
     const [authState, setAuthState] = useState({
         uid: null,
-        token: null
+        token: null,
+        verified: false
     })
 
     return (

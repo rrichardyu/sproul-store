@@ -29,7 +29,8 @@ export default function Authentication() {
 
             const newAuthState = {
                 uid: authResponseJSON.uid,
-                token: authResponseJSON.token
+                token: authResponseJSON.token,
+                verified: true
             }
 
             setAuthState(newAuthState)

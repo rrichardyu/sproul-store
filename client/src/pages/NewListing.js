@@ -1,9 +1,11 @@
 import { useState } from "react"
+import { useAuth } from "../context/AuthContext"
 
 export default function NewListing() {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [uid, setUID] = useState("")
+    const [authState, setAuthState] = useAuth()
 
     const createNewListing = async (event) => {
         event.preventDefault();
@@ -11,6 +13,7 @@ export default function NewListing() {
         try {
             let headers = new Headers();
             headers.append("Content-Type", "application/json");
+            headers.append("Authorization", `Bearer ${authState.token}`)
 
             const newListingResponse = await fetch(`/api/listings`, {
                 method: "POST",

@@ -1,14 +1,45 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function AuthWrapper() {
     const [authState, setAuthState] = useAuth()
 
-    // TODO: add token expiry check
+    const validateToken = useCallback(async () => {
+        try {
+            let headers = new Headers();
+            headers.append("Content-Type", "application/json");
+            headers.append("Authorization", `Bearer ${authState.token}`)
+            
+            const authValidateResponse = await fetch("/api/auth/validate", {
+                method: "POST",
+                headers: headers,
+                credentials: "include"
+            })
 
-    if (!authState.token) {
-        return <Navigate to="/" replace />
+            const authValidateResponseJSON = await authValidateResponse.json()
+            console.log(`Token validation ${authValidateResponseJSON.token}`)
+
+            setAuthState({
+                uid: null,
+                token: authValidateResponseJSON.token,
+                verified: true
+            })
+        } catch (err) {
+            console.error(err.message)
+        }
+    }, [authState.token, setAuthState])
+
+    useEffect(() => {
+        validateToken()
+    }, [validateToken])
+
+    if (authState.verified) {
+        if (!authState.token) {
+            return <Navigate to="/" replace />
+        }
+        return <Outlet />
+    } else {
+        return <p>Verifying authentication...</p>
     }
-    return <Outlet />
 }
