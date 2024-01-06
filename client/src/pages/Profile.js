@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useAuth } from "../context/AuthContext"
 import { formatDate } from "../Utils"
+import { Link } from "react-router-dom"
 
 export default function Profile() {
     // TODO: render my info, my listings (from API), and ability to edit/delete this info
@@ -58,51 +59,55 @@ export default function Profile() {
             <>
                 <h1 class="pageTitle">Profile</h1>
                 <div id="cards-container">
-                    <div class="card">
-                        <h2 class="card-title">Personal Information</h2>
-                        <table>
-                            <tr>
-                                <td class="data-name">Display Name</td>
-                                <td class="data-value">{userData.first_name}</td>
-                            </tr>
-                            <tr>
-                                <td class="data-name">Email</td>
-                                <td class="data-value">{userData.email}</td>
-                            </tr>
-                            <tr>
-                                <td class="data-name">User ID</td>
-                                <td class="data-value">{userData.uid}</td>
-                            </tr>
-                            <tr>
-                                <td class="data-name">Joined</td>
-                                <td class="data-value">{userData.created_at}</td>
-                            </tr>
-                        </table>
-                        <p class="card-text">Your personal information is associated with your UC Berkeley Google account.</p>
-                    </div>
-                    <div class="card">
-                        <h2 class="card-title">My Listings</h2>
-                        <table id="my-listings-table">
+                    <div id="cards-container-left">
+                        <div class="card-left">
+                            <h2 class="card-title">Personal Information</h2>
+                            <table>
                                 <tr>
-                                    <th class="my-listings-header">Title</th>
-                                    <th class="my-listings-header">Created</th>
-                                    <th class="my-listings-header">Actions</th>
+                                    <td class="data-name">Display Name</td>
+                                    <td class="data-value">{userData.first_name}</td>
                                 </tr>
-                            {myListings.map((listing) => (
                                 <tr>
-                                    <td class="my-listing-data">{listing.title}</td>
-                                    <td class="my-listing-data">
-                                        {
-                                            formatDate(listing.created_at)
-                                        }
-                                    </td>
-                                    <td class="my-listing-data">*</td>
+                                    <td class="data-name">Email</td>
+                                    <td class="data-value">{userData.email}</td>
                                 </tr>
-                            ))}
-                        </table>
+                                <tr>
+                                    <td class="data-name">User ID</td>
+                                    <td class="data-value">{userData.uid}</td>
+                                </tr>
+                                <tr>
+                                    <td class="data-name">Joined</td>
+                                    <td class="data-value">{userData.created_at}</td>
+                                </tr>
+                            </table>
+                            <p class="card-text">Your personal information is associated with your UC Berkeley Google account.</p>
+                        </div>
+                        <div class="card-left">
+                            <h2 class="card-title">Contact Information</h2>
+                        </div>
                     </div>
-                    <div class="card">
-                        <h2 class="card-title">Contact Information</h2>
+                    <div id="cards-container-right">
+                        <div class="card-right">
+                            <h2 class="card-title">My Listings</h2>
+                            <table id="my-listings-table">
+                                    <tr>
+                                        <th class="my-listings-header">Title</th>
+                                        <th class="my-listings-header">Created</th>
+                                        <th class="my-listings-header">Actions</th>
+                                    </tr>
+                                {myListings.map((listing) => (
+                                    <tr>
+                                        <td class="my-listing-data"><Link class="profile-listing-title" to={`/listing/${listing.id}`}>{listing.title}</Link></td>
+                                        <td class="my-listing-data">
+                                            {
+                                                formatDate(listing.created_at)
+                                            }
+                                        </td>
+                                        <td class="my-listing-data">*</td>
+                                    </tr>
+                                ))}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </>

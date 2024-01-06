@@ -225,19 +225,34 @@ div#cards-container {
     display: flex;
 }
 
+div#cards-container-left {
+
+}
+
+div#cards-container-right {
+    
+}
+
 h2.card-title {
     font-family: "DM Serif Display";
     margin: 0;
     margin-bottom: 1em;
 }
 
-div.card {
+div.card-left {
     border: solid 2px black;
     border-radius: 0.5em;
-    margin: 1em;
+    margin: 1em 0.5em 1em 1em;
     padding: 1em;
-    width: 33vw;
-    height: 100%;
+    width: 50vw;
+}
+
+div.card-right {
+    border: solid 2px black;
+    border-radius: 0.5em;
+    margin: 1em 1em 1em 0.5em;
+    padding: 1em;
+    flex-grow: 1;
 }
 
 td.data-name {
@@ -281,4 +296,9 @@ div.listing-side-card {
     margin: 1em 1em 1em 0.5em;
     padding: 1em;
     flex-grow: 1;
+}
+
+.profile-listing-title {
+    color: #003262;
+    text-decoration: none;
 }
