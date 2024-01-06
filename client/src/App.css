@@ -228,6 +228,7 @@ div#personal-information {
     margin: 1em;
     padding: 1em;
     width: 50vw;
+    height: 100%;
 }
 
 div#my-listings {
@@ -236,14 +237,28 @@ div#my-listings {
     margin: 1em;
     padding: 1em;
     width: 50vw;
+    height: 100%;
 }
 
 td.data-name {
     font-weight: bold;
-    font-size: large;
     width: 10vw;
 }
 
-td.data-value {
+table {
     font-size: large;
+}
+
+th.my-listings-header {
+    text-decoration: underline;
+    text-align: left;
+}
+
+table#my-listings-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+td.my-listing-data {
+    width: 33%;
 }

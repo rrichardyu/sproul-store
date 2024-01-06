@@ -86,6 +86,30 @@ app.get("/api/listings", auth, async (req, res) => {
     }
 })
 
+app.get("/api/listings/my", auth, async (req, res) => {
+    const query = req.query
+    
+    try {
+        let allData;
+
+        if (Object.keys(query).includes("limit")) {
+            allData = await pool.query(
+                "SELECT listings.*, users.first_name, users.last_name FROM listings \
+                INNER JOIN users ON listings.uid=users.uid WHERE users.uid=$1 LIMIT $2",
+                [req.uid, query.limit]
+            ) 
+        } else {
+            allData = await pool.query("SELECT * FROM listings WHERE uid=$1", [req.uid])
+        }
+
+        res.json(allData.rows)
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
+
 app.post("/api/listings", auth, async (req, res) => {
     try {
         const { title, description, uid } = req.body;

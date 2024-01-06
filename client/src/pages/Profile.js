@@ -8,6 +8,7 @@ export default function Profile() {
 
     const [isBusy, setBusy] = useState(true)
     const [userData, setUserData] = useState({})
+    const [myListings, setMyListings] = useState([])
     const [authState, setAuthState] = useAuth()
 
     const getUserData = useCallback(async () => {
@@ -25,12 +26,45 @@ export default function Profile() {
         } catch (err) {
             console.error(err.message)
         }
-    }, [authState.token, authState.uid])
+    }, [authState.token])
+
+    const getMyListings = useCallback(async () => {
+        try {
+            let headers = new Headers()
+            headers.append("Content-Type", "application/json")
+            headers.append("Authorization", `Bearer ${authState.token}`)
+
+            const myListingsResponse = await fetch(`/api/listings/my`, {
+                headers: headers
+            })
+
+            const myListingsJSON = await myListingsResponse.json()
+            console.log(myListingsJSON)
+            setMyListings(myListingsJSON)
+        } catch (err) {
+            console.error(err.message)
+        }
+    }, [authState.token])
+
+    const formatDate = (date_input) => {
+        const date = new Date(Date.parse(date_input))
+        const formatter = new Intl.DateTimeFormat("en-US",
+            {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+            }
+        )
+        return formatter.format(date)
+    }
 
     useEffect(() => {
         getUserData()
+        getMyListings()
         setBusy(false)
-    }, [getUserData])
+    }, [getMyListings, getUserData])
 
     if (!isBusy) {
         return (
@@ -60,6 +94,24 @@ export default function Profile() {
                     </div>
                     <div id="my-listings">
                         <h2 class="card-title">My Listings</h2>
+                        <table id="my-listings-table">
+                                <tr>
+                                    <th class="my-listings-header">Title</th>
+                                    <th class="my-listings-header">Created</th>
+                                    <th class="my-listings-header">Actions</th>
+                                </tr>
+                            {myListings.map((listing) => (
+                                <tr>
+                                    <td class="my-listing-data">{listing.title}</td>
+                                    <td class="my-listing-data">
+                                        {
+                                            formatDate(listing.created_at)
+                                        }
+                                    </td>
+                                    <td class="my-listing-data">*</td>
+                                </tr>
+                            ))}
+                        </table>
                     </div>
                 </div>
             </>
