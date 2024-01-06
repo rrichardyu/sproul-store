@@ -7,17 +7,18 @@ export default function NavigationBar() {
     const navigate = useNavigate()
     const [authState, setAuthState] = useAuth()
 
-    const logout = () => {
-        redirect()
-        console.log("Logged out of Google")
-    }
+    const logout = async () => {
+        await fetch("/api/auth/logout", {
+            method: "POST"
+        })
 
-    const redirect = async () => {
-        navigate(
-            "/", {
-                replace: false,
-            }
-        )
+        setAuthState({
+            uid: null,
+            token: null,
+            verified: false
+        })
+
+        navigate("/", { replace: false })
     }
 
     return (

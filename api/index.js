@@ -176,3 +176,14 @@ app.post("/api/auth/validate", async (req, res) => {
         token: getCookie("token")
     })
 })
+
+app.post("/api/auth/logout", async (req, res) => {
+    res.cookie("token", null, {
+        httpOnly: true, 
+        expires: new Date(1)
+    })
+    
+    res.status(200).json({
+        message: "Logout successful"
+    })
+})
