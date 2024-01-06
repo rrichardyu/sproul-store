@@ -141,6 +141,12 @@ app.post("/api/auth", async (req, res) => {
                         error: "Token generation failed"
                     })
                 } else {
+                    res.cookie("uid", uid, {
+                        path: "/",
+                        maxAge: 24 * 60 * 60 * 1000,
+                        httpOnly: true
+                    })
+
                     res.cookie("token", token, {
                         path: "/",
                         maxAge: 24 * 60 * 60 * 1000,
@@ -164,7 +170,7 @@ app.post("/api/auth", async (req, res) => {
     }
 })
 
-// Validate set cookie token and return it if valid (use in AuthWrapper)
+// TODO: validate set cookie token and return it if valid (use in AuthWrapper)
 app.post("/api/auth/validate", async (req, res) => {
     const getCookie = (name) => {
         const value = `; ${req.headers.cookie}`;
@@ -173,6 +179,7 @@ app.post("/api/auth/validate", async (req, res) => {
     }
 
     res.json({
+        uid: getCookie("uid"),
         token: getCookie("token")
     })
 })

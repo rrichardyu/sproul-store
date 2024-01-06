@@ -20,8 +20,10 @@ export default function AuthWrapper() {
             const authValidateResponseJSON = await authValidateResponse.json()
             console.log(`Token validation ${authValidateResponseJSON.token}`)
 
+            console.log(authValidateResponseJSON)
+
             setAuthState({
-                uid: null,
+                uid: authValidateResponseJSON.uid,
                 token: authValidateResponseJSON.token,
                 verified: true
             })
