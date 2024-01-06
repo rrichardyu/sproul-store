@@ -95,11 +95,12 @@ app.get("/api/listings/my", auth, async (req, res) => {
         if (Object.keys(query).includes("limit")) {
             allData = await pool.query(
                 "SELECT listings.*, users.first_name, users.last_name FROM listings \
-                INNER JOIN users ON listings.uid=users.uid WHERE users.uid=$1 LIMIT $2",
+                INNER JOIN users ON listings.uid=users.uid WHERE users.uid=$1 LIMIT $2 \
+                ORDER BY created_at DESC",
                 [req.uid, query.limit]
             ) 
         } else {
-            allData = await pool.query("SELECT * FROM listings WHERE uid=$1", [req.uid])
+            allData = await pool.query("SELECT * FROM listings WHERE uid=$1 ORDER BY created_at DESC", [req.uid])
         }
 
         res.json(allData.rows)
