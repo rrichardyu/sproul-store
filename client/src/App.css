@@ -211,3 +211,39 @@ button {
     background-color: green;
     color: white;
 }
+
+div#cards-container {
+    display: flex;
+}
+
+h2.card-title {
+    font-family: "DM Serif Display";
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+div#personal-information {
+    border: solid 2px black;
+    border-radius: 0.5em;
+    margin: 1em;
+    padding: 1em;
+    width: 50vw;
+}
+
+div#my-listings {
+    border: solid 2px black;
+    border-radius: 0.5em;
+    margin: 1em;
+    padding: 1em;
+    width: 50vw;
+}
+
+td.data-name {
+    font-weight: bold;
+    font-size: large;
+    width: 10vw;
+}
+
+td.data-value {
+    font-size: large;
+}
