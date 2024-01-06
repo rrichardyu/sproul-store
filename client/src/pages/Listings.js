@@ -39,12 +39,13 @@ export default function Listings() {
                 <div id="listings-container">
                     {listings.map((listing) => (
                         <>
-                            <div class="listing-item">
+                            <Link className="listing-item" class="listing-item" to={`/listing/${listing.id}`}>
+                            <div>
                                 <h3 class="listing-title">{listing.title}</h3>
                                 <h4 class="listing-subtitle">Posted by {listing.first_name} on {formatDate(listing.created_at)}</h4>
                                 <p class="listing-description">{listing.description}</p>
-                                <Link className="listing-details-link" to={`/listing/${listing.id}`}><button class="listing-details-button">Details</button></Link>
                             </div>
+                            </Link>
                         </>
                     ))}
                 </div>

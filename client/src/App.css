@@ -72,6 +72,8 @@ body {
     box-shadow: 0 3px 4px 0 rgba(0,0,0,.2);
 
     flex: 0 0 21%;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .listing-details-button {
@@ -81,6 +83,13 @@ body {
 
 .listing-details-button:hover {
     background-color: white;
+}
+
+.listing-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
 }
 
 .new-listing-form-container {
