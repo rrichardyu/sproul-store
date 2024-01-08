@@ -90,6 +90,7 @@ body {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
+    white-space: pre-wrap;
 }
 
 .new-listing-form-container {
@@ -301,4 +302,8 @@ div.listing-side-card {
 .profile-listing-title {
     color: #003262;
     text-decoration: none;
+}
+
+#listing-description {
+    white-space: pre-wrap;
 }
