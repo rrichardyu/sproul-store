@@ -65,7 +65,7 @@ export default function Profile() {
                             <table>
                                 <tr>
                                     <td class="data-name">Display Name</td>
-                                    <td class="data-value">{userData.first_name}</td>
+                                    <td class="data-value">{userData.name}</td>
                                 </tr>
                                 <tr>
                                     <td class="data-name">Email</td>

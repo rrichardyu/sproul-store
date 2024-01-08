@@ -42,7 +42,7 @@ export default function Listings() {
                             <Link className="listing-item" class="listing-item" to={`/listing/${listing.id}`}>
                             <div>
                                 <h3 class="listing-title">{listing.title}</h3>
-                                <h4 class="listing-subtitle">Posted by {listing.first_name} on {formatDate(listing.created_at)}</h4>
+                                <h4 class="listing-subtitle">Posted by {listing.name} on {formatDate(listing.created_at)}</h4>
                                 <p class="listing-description">{listing.description}</p>
                             </div>
                             </Link>

@@ -1,7 +1,6 @@
 CREATE TABLE "users" (
   "uid" integer PRIMARY KEY,
-  "first_name" varchar,
-  "last_name" varchar,
+  "name" varchar,
   "email" varchar,
   "created_at" timestamp
 );

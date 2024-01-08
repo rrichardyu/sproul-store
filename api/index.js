@@ -34,8 +34,8 @@ app.get("/api/users", auth, async (req, res) => {
 })
 
 app.post("/api/users", auth, async (req, res) => {
-    const { first_name, last_name, email } = req.body
-    res.json(createNewUser(first_name, last_name, email))
+    const { name, email } = req.body
+    res.json(createNewUser(name, email))
 })
 
 app.get("/api/user/my", auth, async (req, res) => {
@@ -70,7 +70,7 @@ app.get("/api/listings", auth, async (req, res) => {
 
         if (Object.keys(query).includes("limit")) {
             allData = await pool.query(
-                "SELECT listings.*, users.first_name, users.last_name FROM listings \
+                "SELECT listings.*, users.name FROM listings \
                 INNER JOIN users ON listings.uid=users.uid LIMIT $1",
                 [query.limit]
             ) 
@@ -94,7 +94,7 @@ app.get("/api/listings/my", auth, async (req, res) => {
 
         if (Object.keys(query).includes("limit")) {
             allData = await pool.query(
-                "SELECT listings.*, users.first_name, users.last_name FROM listings \
+                "SELECT listings.*, users.name FROM listings \
                 INNER JOIN users ON listings.uid=users.uid WHERE users.uid=$1 LIMIT $2 \
                 ORDER BY created_at DESC",
                 [req.uid, query.limit]
@@ -147,7 +147,7 @@ app.get("/api/listing/:id", auth, async (req, res) => {
     try {
         const { id } = req.params
         const listing = await pool.query(
-            "SELECT listings.*, users.first_name, users.last_name FROM listings \
+            "SELECT listings.*, users.name FROM listings \
                 INNER JOIN users ON listings.uid=users.uid WHERE id=$1", 
             [id]
         )

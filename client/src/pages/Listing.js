@@ -36,7 +36,7 @@ export default function Listing() {
                 <div class="listing-left-container">
                     <div class="listing-main-card">
                         <h2>{listing.title}</h2>
-                        <h4>Posted by {listing.first_name} on {listing.created_at}</h4>
+                        <h4>Posted by {listing.name} on {listing.created_at}</h4>
                     </div>
                     <div class="listing-main-card">
                         <p id="listing-description">{listing.description}</p>
