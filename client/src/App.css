@@ -307,3 +307,16 @@ div.listing-side-card {
 #listing-description {
     white-space: pre-wrap;
 }
+
+div#listings-categories {
+    margin-left: 1em;
+}
+
+button.listings-category-button {
+    margin-right: 0.5em;
+}
+
+button.listings-category-button-active {
+    margin-right: 0.5em;
+    background-color: #FDB515;
+}

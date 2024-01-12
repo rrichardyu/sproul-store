@@ -247,3 +247,14 @@ app.post("/api/auth/logout", async (req, res) => {
         message: "Logout successful"
     })
 })
+
+app.get("/api/categories", auth, async (req, res) => {
+    try {
+        const allData = await pool.query("SELECT * FROM categories")
+        res.json(allData.rows)
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
