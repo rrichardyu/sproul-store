@@ -258,3 +258,14 @@ app.get("/api/categories", auth, async (req, res) => {
         })
     }
 })
+
+app.get("/api/categories_mapping", auth, async (req, res) => {
+    try {
+        const allData = await pool.query("SELECT * FROM listings_categories")
+        res.json(allData.rows)
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+})
