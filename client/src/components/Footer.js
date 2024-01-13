@@ -5,9 +5,8 @@ export default function Footer() {
 
     return (
         <footer>
-            <p class="footer-row"><b>UID:</b> {authState.uid}</p>
-            <p class="footer-row"><b>Session Token:</b> {authState.token}</p>
-            <p class="footer-row"><b>sproul.store</b> (dev) {Date().toString()}</p>
+            <p class="footer-row" onClick={() => {navigator.clipboard.writeText(authState.token)}}>(⎘ click to copy session token)</p>
+            <p class="footer-row"><b>sproul.store</b> {Date().toString()}</p>
         </footer>
     )
 }
