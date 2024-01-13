@@ -59,13 +59,16 @@ body {
 #listings-container {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 1em;
 }
 
 .listing-item {
     background-color: #53626F;
     color: white;
     padding: 1em;
-    margin: 1em;
+    /* margin: 1em; */
+    margin-top: 1em;
+    margin-right: 1em;
     border: solid 2px black;
     border-radius: 0.5em;
     /* box-shadow: 0.5em 0.5em black; */

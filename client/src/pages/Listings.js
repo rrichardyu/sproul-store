@@ -13,9 +13,7 @@ export default function Listings() {
 
     const getListings = useCallback(async (req_num_listings) => {
         try {
-            const listingsResponse = await fetch("/api/listings?" + new URLSearchParams({
-                limit: req_num_listings
-            }), 
+            const listingsResponse = await fetch("/api/listings",
                 {
                     headers: {
                         "Authorization": "Bearer " + authState.token
