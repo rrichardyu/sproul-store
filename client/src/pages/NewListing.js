@@ -86,8 +86,10 @@ export default function NewListing() {
                     <br />
                     {categories.map((category) => (
                         <>
-                            <input type="checkbox" checked={selectedCategories.includes(category.id)} value={category.id} onChange={checkboxHandler} />
-                            <label>{category.category}</label>
+                            <label class="input-checkbox-label">
+                                <input type="checkbox" checked={selectedCategories.includes(category.id)} value={category.id} onChange={checkboxHandler} />
+                                {category.category.charAt(0).toUpperCase() + category.category.slice(1)}
+                            </label>
                             <br />
                         </>
                     ))}

@@ -325,3 +325,13 @@ button.listings-category-button-active {
     margin: 1em;
     font-size: x-large;
 }
+
+p.listing-category-tag {
+    padding: 0.5em;
+    margin: 0;
+    margin-right: 0.5em;
+    background-color: #53626F;
+    border-radius: 0.5em;
+    color: white;
+    display: inline-block;
+}

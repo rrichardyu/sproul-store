@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from "react-router-dom"
 import { useAuth } from '../context/AuthContext';
 
@@ -8,7 +8,7 @@ export default function Listing() {
     const [listing, setListing] = useState([])
     const [authState, setAuthState] = useAuth()
 
-    const getListing = async (id) => {
+    const getListing = useCallback(async (id) => {
         try {
             let headers = new Headers()
             headers.append("Content-Type", "application/json")
@@ -23,12 +23,12 @@ export default function Listing() {
         } catch (err) {
             console.error(err.message)
         }
-    }
+    }, [authState.token])
 
     useEffect(() => {
         getListing(id)
         setBusy(false)
-    }, [id])
+    }, [getListing, id])
 
     if (!isBusy) {
         return (
@@ -37,6 +37,9 @@ export default function Listing() {
                     <div class="listing-main-card">
                         <h2>{listing.title}</h2>
                         <h4>Posted by {listing.name} on {listing.created_at}</h4>
+                        {listing.categories?.map((category) => (
+                            <p class="listing-category-tag">{category.category.charAt(0).toUpperCase() + category.category.slice(1)}</p>
+                        ))}
                     </div>
                     <div class="listing-main-card">
                         <p id="listing-description">{listing.description}</p>

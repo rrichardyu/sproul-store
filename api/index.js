@@ -156,12 +156,22 @@ app.post("/api/listings/my", auth, async (req, res) => {
 app.get("/api/listing/:id", auth, async (req, res) => {
     try {
         const { id } = req.params
+
         const listing = await pool.query(
             "SELECT listings.*, users.name FROM listings \
                 INNER JOIN users ON listings.uid=users.uid WHERE id=$1", 
             [id]
         )
-        res.json(listing.rows[0])
+
+        const associatedCategories = await pool.query(
+            "SELECT * FROM listings_categories INNER JOIN categories ON listings_categories.categories_id=categories.id \
+                where listings_id=$1;",
+            [listing.rows[0].id]
+        )
+
+        const output = Object.assign({}, listing.rows[0], {categories: associatedCategories.rows})
+
+        res.json(output)
     } catch (err) {
         res.json({
             message: err.message
