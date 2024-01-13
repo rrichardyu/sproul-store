@@ -114,7 +114,7 @@ export default function Profile() {
         )
     } else {
         return (
-            <p>Fetching profile information...</p>
+            <p class="loading">Fetching profile information...</p>
         )
     }
 }

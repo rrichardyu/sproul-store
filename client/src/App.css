@@ -320,3 +320,8 @@ button.listings-category-button-active {
     margin-right: 0.5em;
     background-color: #FDB515;
 }
+
+.loading {
+    margin: 1em;
+    font-size: x-large;
+}

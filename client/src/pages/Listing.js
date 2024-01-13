@@ -50,6 +50,6 @@ export default function Listing() {
             </div>
         )
     } else {
-        return <p>Fetching listing...</p>
+        return <p class="loading">Fetching listing...</p>
     }
 }

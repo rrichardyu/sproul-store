@@ -122,6 +122,6 @@ export default function Listings() {
             </>
         )
     } else {
-        return <p>Fetching listings...</p>
+        return <p class="loading">Fetching listings...</p>
     }
 }

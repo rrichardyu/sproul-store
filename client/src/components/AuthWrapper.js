@@ -42,6 +42,6 @@ export default function AuthWrapper() {
         }
         return <Outlet />
     } else {
-        return <p>Verifying authentication...</p>
+        return <p class="loading">Verifying authentication...</p>
     }
 }
