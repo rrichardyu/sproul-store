@@ -129,12 +129,22 @@ app.post("/api/listings", auth, async (req, res) => {
 
 app.post("/api/listings/my", auth, async (req, res) => {
     try {
-        const { title, description } = req.body;
+        const { title, description, categories } = req.body;
+
         const newListing = await pool.query(
             `INSERT INTO listings (title, description, uid, created_at, active) \
-                VALUES ($1, $2, (SELECT uid FROM users WHERE uid=$3), to_timestamp($4), $5)`,
+                VALUES ($1, $2, (SELECT uid FROM users WHERE uid=$3), to_timestamp($4), $5) RETURNING id`,
             [title, description, req.uid, Date.now() / 1000.0, true]
         )
+
+        const newListingID = newListing.rows[0].id
+        for (let i = 0; i < categories.length; i++) {
+            const newCategoryMapping = await pool.query(
+                `INSERT INTO listings_categories (listings_id, categories_id) VALUES ($1, $2)`,
+                [newListingID, categories[i]]
+            )
+        }
+
         res.json(newListing)
     } catch (err) {
         res.json({

@@ -96,8 +96,7 @@ export default function Listings() {
                 <div id="listings-container">
                     {listings.map((listing) => (
                         <>
-                            {categoriesMapping.map((categoryMapping) => (
-                                activeCategory === 0 || activeCategory === categoryMapping.categories_id && listing.id === categoryMapping.listings_id
+                            {activeCategory === 0
                                 ?   <Link className="listing-item" class="listing-item" to={`/listing/${listing.id}`}>
                                         <div>
                                             <h3 class="listing-title">{listing.title}</h3>
@@ -105,8 +104,18 @@ export default function Listings() {
                                             <p class="listing-description">{listing.description}</p>
                                         </div>
                                     </Link>
-                                : <></>
-                            ))}
+                                :   categoriesMapping.map((categoryMapping) => 
+                                    activeCategory === categoryMapping.categories_id && listing.id === categoryMapping.listings_id
+                                    ?   <Link className="listing-item" class="listing-item" to={`/listing/${listing.id}`}>
+                                            <div>
+                                                <h3 class="listing-title">{listing.title}</h3>
+                                                <h4 class="listing-subtitle">Posted by {listing.name} on {formatDate(listing.created_at)}</h4>
+                                                <p class="listing-description">{listing.description}</p>
+                                            </div>
+                                        </Link>
+                                    : <></>
+                                )
+                            }
                         </>
                     ))}
                 </div>
